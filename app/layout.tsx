@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import {Inter} from "next/font/google";
-import { APP_NAME } from "@/lib/constants";
+import { APP_DESCRIPTION, APP_NAME, SERVER_URL } from "@/lib/constants";
 import "../assets/styles/globals.css";
 
 
@@ -13,7 +13,8 @@ export const metadata: Metadata = {
     template: `%s | Prostore`,
     default: APP_NAME
   },
-  description: "A modern ecommerce plateform built with next.js",
+  description: APP_DESCRIPTION,
+  metadataBase: new URL(SERVER_URL)
 };
 
 export default function RootLayout({
