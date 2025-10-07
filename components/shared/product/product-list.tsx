@@ -1,4 +1,4 @@
-import React from 'react'
+import ProductCard from "./product-card";
 
 const ProductList = ({data, title, limit}: {data: any, title?: string; limit?:number}) => {
   
@@ -13,7 +13,7 @@ const ProductList = ({data, title, limit}: {data: any, title?: string; limit?:nu
            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
               {
                 limitedData.map((product: any) => (
-                  <div>{product.name}</div>
+                  <ProductCard key={product.slug} product={product} />
                 ))
               }
            </div>
