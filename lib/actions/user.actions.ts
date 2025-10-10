@@ -4,6 +4,7 @@ import { signInFormSchema } from "../validators"
 import { signIn, signOut } from "@/auth"
 import { isRedirectError } from "next/dist/client/components/redirect"
 import { success } from "zod"
+import { AuthError } from "next-auth"
 
 // Sign in the user with credentials
 export async function signInWithCredentials(prevState: unknown, formData: FormData) {
@@ -12,13 +13,17 @@ export async function signInWithCredentials(prevState: unknown, formData: FormDa
             email: formData.get('email'),
             password: formData.get('password')
         })
-        await signIn('credentials', user);
+           // ✅ prevent auto redirect so we can handle response manually
+       const result = await signIn("credentials", {
+          ...user,
+          redirect: false,
+         })
+        if (result?.error) {
+           return { success: false, message: "Invalid email or password" }
+        }
 
         return {success: true, message: 'Signed in successfully'}
     } catch (error) {
-        if(isRedirectError(error)) {
-            throw error;
-        }
 
         return {success: false, message: 'Invalid email or password'}
     }
