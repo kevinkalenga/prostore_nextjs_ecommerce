@@ -141,7 +141,7 @@ const CredentialsSignInForm = () => {
       redirect: false,
       email,
       password,
-      callbackUrl,
+       callbackUrl,
     })
 
     if (result?.error) {
@@ -155,6 +155,7 @@ const CredentialsSignInForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      <input type="hidden" name="callbackUrl" value={callbackUrl} />
       <div>
         <Label htmlFor="email">Email</Label>
         <Input
